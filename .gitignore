@@ -1,5 +1,6 @@
 // hide development stuff
 credentials.js
+tests.js
 
 // hide package stuff
 node_modules/
