@@ -1,10 +1,14 @@
-// const config = require('../config.json');
 const HOSTNAME = 'http://localhost';
 const URL = `${HOSTNAME}:${3000}`;
+const API_KEYS = '9ce05789365f2a86b0f4730356dc215e';
 
 /******************** HANDLE API ********************/
 
-// get all entries from server
+/**
+ * @description Gets all entry from server
+ * @param none
+ * @returns {array} Array of objects
+ */
 const getAll = async () => {
   const res = await fetch(URL + '/all');
   try {
@@ -14,7 +18,11 @@ const getAll = async () => {
   }
 };
 
-// get last entry from server
+/**
+ * @description Gets last entry from server
+ * @param none
+ * @returns {object} Last entry
+ */
 const getLast = async () => {
   const res = await fetch(URL + '/last');
   try {
@@ -24,7 +32,11 @@ const getLast = async () => {
   }
 };
 
-// post entry to server
+/**
+ * @description Post entry to server
+ * @param {object} Object to insert
+ * @returns {object} Inserted object
+ */
 const postEntry = async (data) => {
   const res = await fetch('http://localhost:3000/create/', {
     method: 'POST',
@@ -40,12 +52,14 @@ const postEntry = async (data) => {
 };
 
 /**************** HANDLE SERVER API *****************/
+/**
+ * @description Get weather data for a zip code
+ * @param {string} Zip code
+ * @returns {object} Weather data
+ */
 const getWeatherAtZip = async (zip) => {
-  API_KEYS = '9ce05789365f2a86b0f4730356dc215e';
-  let thiszip = 65248; // const for now
-
   const res = await fetch(
-    `http://api.openweathermap.org/data/2.5/weather?zip=${thiszip}&appid=${API_KEYS}`
+    `http://api.openweathermap.org/data/2.5/weather?zip=${zip}&appid=${API_KEYS}&units=metric`
   );
   try {
     return await res.json();
@@ -56,7 +70,11 @@ const getWeatherAtZip = async (zip) => {
 
 /*********************** HMTL ***********************/
 
-// init script, try to popylate if info is availabe
+/**
+ * @description Cheks for existing entries and call UI update
+ * @param none
+ * @returns none
+ */
 const init = async () => {
   let data = await getLast();
   if (data == null) return;
@@ -64,7 +82,11 @@ const init = async () => {
   updateUI(data);
 };
 
-// update UI elements
+/**
+ * @description Update UI with given object
+ * @param {object} Object to show
+ * @returns none
+ */
 const updateUI = (entry) => {
   // get elements to update
   const dateDiv = document.getElementById('date');
@@ -77,6 +99,11 @@ const updateUI = (entry) => {
   contentDiv.innerText = entry.content || '';
 };
 
+/**
+ * @description Gets data from html and calls to add to server
+ * @param {object} event handler
+ * @returns none
+ */
 const generateHandler = async (e) => {
   // get data from html
   const zipCode = document.getElementById('zip').value;

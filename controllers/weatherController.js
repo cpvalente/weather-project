@@ -6,7 +6,7 @@ let projectData = [];
 
 // aux
 const eventDef = {
-  date: 'datae',
+  date: 'dates',
   weather: 'temperature',
   content: 'veryobject',
 };
@@ -17,8 +17,8 @@ exports.getAll = async = (req, res) => {
 };
 
 exports.getLast = (req, res) => {
-  const last = projectData[projectData.length - 1];
-  console.log('getlast', last);
+  const last =
+    projectData.length > 0 ? projectData[projectData.length - 1] : null;
 
   res.json(last);
 };
