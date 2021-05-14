@@ -20,7 +20,7 @@ const getLast = async () => {
   try {
     return await res.json();
   } catch (error) {
-    console.log('error');
+    console.log(error);
   }
 };
 
@@ -58,7 +58,6 @@ const getWeatherAtZip = async (zip) => {
 
 // init script, try to popylate if info is availabe
 const init = async () => {
-  console.log('running init');
   let data = await getLast();
   if (data == null) return;
 
@@ -74,7 +73,7 @@ const updateUI = (entry) => {
 
   // update elements
   dateDiv.innerText = entry.date || '';
-  tempDiv.innerText = entry.weather.main.temp || '';
+  tempDiv.innerText = `${entry.weather.main.temp}°` || '';
   contentDiv.innerText = entry.content || '';
 };
 
