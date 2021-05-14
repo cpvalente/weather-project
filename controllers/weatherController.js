@@ -1,6 +1,3 @@
-// get API key
-const { API_KEYS } = require('../api/credentials');
-
 // Keep all in memory
 let projectData = [];
 
